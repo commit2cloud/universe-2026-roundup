@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A customer guide to GitHub Universe 2026: 35 announcements across Copilot, security, Actions, and the developer platform, with official sources and availability notes.">
+  <meta name="color-scheme" content="light dark">
+  <title>GitHub Universe 2026 | Announcement roundup</title>
+  <script>
+    (() => {
+      const param = new URLSearchParams(window.location.search).get("scoutTheme");
+      const theme =
+        param || (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+      document.documentElement.setAttribute("data-theme", theme);
+    })();
+  </script>
+  <style>
+    :root {
+      color-scheme: light;
+      --cp-bg: #f7f4ef;
+      --cp-bg-elevated: #fcfbf8;
+      --cp-surface: #ffffff;
+      --cp-surface-soft: #f5f5f5;
+      --cp-border: #dedede;
+      --cp-border-strong: #919191;
+      --cp-text: #242424;
+      --cp-text-muted: #5c5c5c;
+      --cp-text-soft: #6f6f6f;
+      --cp-accent: #b11f4b;
+      --cp-accent-hover: #9a1a41;
+      --cp-accent-soft: rgba(177, 31, 75, 0.08);
+      --cp-accent-fg: #ffffff;
+      --cp-success: #16a34a;
+      --cp-danger: #dc2626;
+      --cp-warning: #f59e0b;
+      --cp-link: #0078d4;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.12);
+      --cp-overlay: rgba(255, 255, 255, 0.8);
+      --cp-panel: rgba(255, 255, 255, 0.86);
+      --cp-panel-strong: rgba(255, 255, 255, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.55);
+      --cp-highlight: rgba(177, 31, 75, 0.12);
+    }
+    html[data-theme="dark"] {
+      color-scheme: dark;
+      --cp-bg: #3d3b3a;
+      --cp-bg-elevated: #343231;
+      --cp-surface: #292929;
+      --cp-surface-soft: #2e2e2e;
+      --cp-border: #474747;
+      --cp-border-strong: #5f5f5f;
+      --cp-text: #dedede;
+      --cp-text-muted: #919191;
+      --cp-text-soft: #b0b0b0;
+      --cp-accent: #fd8ea1;
+      --cp-accent-hover: #fb7b91;
+      --cp-accent-soft: rgba(253, 142, 161, 0.14);
+      --cp-accent-fg: #1a1a1a;
+      --cp-success: #4ade80;
+      --cp-danger: #f87171;
+      --cp-warning: #fbbf24;
+      --cp-link: #4da6ff;
+      --cp-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
+      --cp-overlay: rgba(41, 41, 41, 0.88);
+      --cp-panel: rgba(41, 41, 41, 0.72);
+      --cp-panel-strong: rgba(41, 41, 41, 0.96);
+      --cp-sheen: rgba(255, 255, 255, 0.04);
+      --cp-highlight: rgba(253, 142, 161, 0.12);
+    }
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    html { scroll-padding-top: 24px; }
+    body { margin: 0; background: var(--cp-bg); color: var(--cp-text); font: 16px/1.6 "Segoe UI", Aptos, Calibri, -apple-system, BlinkMacSystemFont, sans-serif; }
+    a { color: var(--cp-link); text-underline-offset: 3px; overflow-wrap: anywhere; }
+    a:hover { text-decoration-thickness: 2px; }
+    :focus-visible { outline: 3px solid var(--cp-accent); outline-offset: 4px; }
+    button, input, select { font: inherit; }
+    button, select { cursor: pointer; }
+    button { min-height: 44px; padding: 8px 16px; border: 1px solid var(--cp-border-strong); border-radius: .625rem; background: var(--cp-surface); color: var(--cp-text); }
+    button:hover { border-color: var(--cp-accent); }
+    .wrap { width: min(1120px, calc(100% - 48px)); margin-inline: auto; }
+    .skip { position: absolute; top: -80px; left: 16px; z-index: 2; padding: 12px; background: var(--cp-surface); }
+    .skip:focus { top: 8px; }
+    .masthead { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; border-bottom: 1px solid var(--cp-border); }
+    .wordmark { font-weight: 700; font-size: 15px; letter-spacing: .04em; }
+    .wordmark span { color: var(--cp-accent); }
+    .eyebrow, .kicker { font: 600 12px/1.5 Consolas, "Courier New", Courier, monospace; letter-spacing: .09em; text-transform: uppercase; }
+    .eyebrow { color: var(--cp-accent); margin: 0 0 16px; }
+    .hero { display: grid; grid-template-columns: 1fr 240px; align-items: end; gap: 40px; padding: 56px 0 40px; }
+    h1 { font-size: clamp(36px, 6vw, 64px); letter-spacing: -.045em; line-height: 1.06; margin: 0 0 24px; max-width: 780px; font-weight: 750; }
+    .intro { font-size: 19px; line-height: 1.6; max-width: 700px; margin: 0; color: var(--cp-text-muted); }
+    .edition { border-left: 3px solid var(--cp-accent); padding: 8px 0 8px 24px; }
+    .edition strong { display: block; font-size: 44px; line-height: 1.2; letter-spacing: -.04em; }
+    .edition p { margin: 4px 0 20px; color: var(--cp-text-muted); font-size: 14px; }
+    .edition a { font-size: 14px; }
+    .meta { display: flex; flex-wrap: wrap; gap: 12px 28px; padding: 20px 0; border-top: 1px solid var(--cp-border); border-bottom: 1px solid var(--cp-border); color: var(--cp-text-muted); font-size: 14px; }
+    .meta strong { color: var(--cp-text); }
+    .overview { padding: 36px 0; }
+    h2 { font-size: 25px; line-height: 1.25; letter-spacing: -.025em; margin: 0 0 12px; }
+    .overview > p { max-width: 860px; color: var(--cp-text-muted); margin: 0 0 24px; }
+    .highlights { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+    .highlights a { display: block; height: 100%; padding: 20px; border-radius: 16px; border: 1px solid var(--cp-border); background: var(--cp-surface); color: var(--cp-text); text-decoration: none; }
+    .highlights a:hover { border-color: var(--cp-accent); }
+    .highlights b { display: block; color: var(--cp-accent); font: 600 12px Consolas, "Courier New", Courier, monospace; margin-bottom: 16px; }
+    .highlights strong { font-size: 17px; line-height: 1.3; display: block; margin-bottom: 8px; }
+    .highlights span { font-size: 14px; color: var(--cp-text-muted); }
+    .notice { padding: 20px 24px; background: var(--cp-accent-soft); border-left: 3px solid var(--cp-accent); border-radius: 0 .625rem .625rem 0; font-size: 14px; }
+    .notice p { margin: 0; }
+    .notice p + p { margin-top: 8px; }
+    .catalog { padding-top: 40px; }
+    .catalog-header { display: flex; align-items: baseline; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+    .catalog-header p { color: var(--cp-text-muted); margin: 0 0 12px; font-size: 14px; }
+    .filters { display: grid; grid-template-columns: 1fr 280px auto; gap: 16px; align-items: end; padding: 20px; margin: 12px 0 32px; border: 1px solid var(--cp-border); border-radius: 16px; background: var(--cp-bg-elevated); }
+    label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+    input, select { width: 100%; min-height: 46px; border: 1px solid var(--cp-border-strong); border-radius: .625rem; background: var(--cp-surface); color: var(--cp-text); padding: 10px 12px; }
+    input::placeholder { color: var(--cp-text-muted); }
+    .group { margin-bottom: 40px; }
+    .group-heading { display: flex; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--cp-border); padding-bottom: 12px; margin-bottom: 20px; }
+    .group-heading h3 { margin: 0; font-size: 21px; letter-spacing: -.02em; }
+    .group-heading .kicker { color: var(--cp-accent); }
+    .entries { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .entry { background: var(--cp-surface); border: 1px solid var(--cp-border); border-radius: 16px; padding: 24px; scroll-margin-top: 24px; }
+    .entry:target { border-color: var(--cp-accent); outline: 2px solid var(--cp-accent); outline-offset: 3px; }
+    .entry-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+    .badge { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: .03em; padding: 3px 8px; border: 1px solid var(--cp-border); border-radius: 6px; color: var(--cp-text-muted); background: var(--cp-surface-soft); }
+    .badge.preview { color: var(--cp-accent); background: var(--cp-accent-soft); border-color: var(--cp-accent); }
+    time { color: var(--cp-text-muted); white-space: nowrap; font-size: 12px; }
+    h4 { font-size: 19px; line-height: 1.35; letter-spacing: -.015em; margin: 0 0 12px; }
+    h4 a { color: var(--cp-text); text-decoration-color: var(--cp-border-strong); }
+    h4 a:hover { color: var(--cp-accent); }
+    .entry p { margin: 0 0 12px; font-size: 15px; }
+    .entry .detail { color: var(--cp-text-muted); font-size: 13px; margin: 0; border-top: 1px solid var(--cp-border); padding-top: 12px; }
+    .entry .docs { display: inline-block; margin-top: 12px; font-size: 13px; }
+    .empty { text-align: center; padding: 48px 24px; border: 1px dashed var(--cp-border-strong); border-radius: 16px; }
+    .reading { padding: 32px; border-radius: 16px; border: 1px solid var(--cp-border); background: var(--cp-bg-elevated); }
+    .reading ul { padding-left: 20px; margin-bottom: 0; }
+    .reading li + li { margin-top: 16px; }
+    .reading p { color: var(--cp-text-muted); font-size: 14px; margin: 4px 0 0; }
+    footer { border-top: 1px solid var(--cp-border); margin-top: 40px; padding: 28px 0 40px; font-size: 13px; color: var(--cp-text-muted); }
+    footer p { max-width: 920px; }
+    footer a { margin-right: 20px; }
+    @media (max-width: 800px) {
+      .hero { grid-template-columns: 1fr; gap: 24px; padding-top: 36px; }
+      .edition { display: none; }
+      .highlights { grid-template-columns: 1fr 1fr; }
+      .filters { grid-template-columns: 1fr 1fr; }
+      .search-field { grid-column: 1 / -1; }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: calc(100% - 32px); }
+      .entries { grid-template-columns: 1fr; }
+      .entry { padding: 20px; }
+      .highlights a { padding: 16px; }
+      .intro { font-size: 17px; }
+      .filters { grid-template-columns: 1fr; }
+      .search-field { grid-column: auto; }
+      .reading { padding: 24px; }
+      .meta { gap: 8px; flex-direction: column; }
+    }
+    @media print {
+      body { background: var(--cp-surface); }
+      .wrap { width: 100%; }
+      .filters, #theme-toggle, .highlights, .skip { display: none !important; }
+      .hero { padding: 16px 0; }
+      h1 { font-size: 32px; }
+      .entries { display: block; }
+      .entry { break-inside: avoid; margin-bottom: 16px; }
+      .entry a.announcement::after { content: " (" attr(href) ")"; display: block; font-size: 10px; font-weight: 400; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#announcements">Skip to announcements</a>
+  <div class="wrap">
+    <header class="masthead">
+      <div class="wordmark">GitHub Universe <span>/ 2026</span></div>
+      <button id="theme-toggle" type="button" aria-label="Switch color theme" hidden>Switch theme</button>
+    </header>
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">The customer guide / Universe week</p>
+          <h1 id="page-title">What changed.<br>Why it matters.<br>Where to learn more.</h1>
+          <p class="intro">The major GitHub announcements from Universe 2026, brought together in one shareable guide. Explore what's new, check availability, and go straight to the official source.</p>
+        </div>
+        <aside class="edition" aria-label="Guide at a glance">
+          <strong>35</strong>
+          <p>changelog announcements<br>across 7 product areas</p>
+          <a href="https://github.com/events/universe/recap">Explore the official recap</a>
+        </aside>
+      </section>
+      <div class="meta">
+        <span><strong>Event:</strong> Oct 28-29, 2026</span>
+        <span><strong>Coverage:</strong> Oct 26-Nov 01, 2026</span>
+        <span><strong>Sources reviewed:</strong> Nov 19, 2026</span>
+      </div>
+      <section class="overview" aria-labelledby="overview-title">
+        <h2 id="overview-title">The big picture</h2>
+        <p>GitHub's Universe message: connect the work from idea to completed software. The announcements extend agent orchestration, shared context, security, and delivery infrastructure while adding controls for administrators.</p>
+        <ul class="highlights">
+          <li><a href="#copilot-app"><b>01 / BUILD</b><strong>Coordinate agent work</strong><span>Projects, Fusion, and sessions that move across tools.</span></a></li>
+          <li><a href="#shared-automations"><b>02 / AUTOMATE</b><strong>Make it repeatable</strong><span>Shared workflows, learning loops, and deeper reviews.</span></a></li>
+          <li><a href="#dependabot-reachability"><b>03 / PROTECT</b><strong>Focus security effort</strong><span>Reachability, AI scanning, and broader secret detection.</span></a></li>
+          <li><a href="#enterprise-copilot"><b>04 / GOVERN</b><strong>Plan the rollout</strong><span>Enterprise access, budgets, policies, and compute changes.</span></a></li>
+        </ul>
+      </section>
+      <aside class="notice" aria-label="How to read this guide">
+        <p><strong>Announcement does not mean enabled everywhere.</strong> GA means generally available; previews and experimental features may change. Plans, administrator policies, client versions, regions, and usage charges still apply. GitHub Enterprise Server availability is not implied.</p>
+        <p>Labels reflect the announcement's stated release stage, with later corrections noted. In particular, the Moderate role became available Nov 12, and the cloud-sandbox post now specifies billing begins Nov 23. Use the linked documentation for current eligibility and terms.</p>
+      </aside>
+      <section class="catalog" id="announcements" aria-labelledby="catalog-title">
+        <div class="catalog-header">
+          <h2 id="catalog-title">Explore the announcements</h2>
+          <p id="result-count" role="status" aria-live="polite" aria-atomic="true">35 announcements across 7 product areas</p>
+        </div>
+        <form class="filters" id="filters" role="search" hidden>
+          <div class="search-field">
+            <label for="search">Search announcements</label>
+            <input id="search" type="search" placeholder="Try: security, budgets, JetBrains..." autocomplete="off">
+          </div>
+          <div>
+            <label for="category">Product area</label>
+            <select id="category">
+              <option value="all">All product areas</option>
+              <option value="copilot">Copilot &amp; models</option>
+              <option value="automation">Automation &amp; review</option>
+              <option value="security">Security</option>
+              <option value="developer">Developer experience</option>
+              <option value="platform">Platform &amp; collaboration</option>
+              <option value="infrastructure">Actions &amp; infrastructure</option>
+              <option value="enterprise">Enterprise &amp; extensibility</option>
+            </select>
+          </div>
+          <button type="reset">Clear filters</button>
+        </form>
+
+        <section class="group" data-category="copilot" aria-labelledby="copilot-heading">
+          <div class="group-heading"><span class="kicker">01</span><h3 id="copilot-heading">Copilot &amp; models</h3></div>
+          <ul class="entries">
+            <li class="entry" id="copilot-app">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-copilot-app-universe-releases">Copilot app: projects and computer use</a></h4>
+              <p>Projects bring repositories, context, agents, and results into one place for work that spans sessions or repositories. Computer use lets Copilot interact with desktop applications on macOS and Windows.</p>
+              <p class="detail">Projects and app computer use were announced in public preview. Computer use requires approval for each app and can be disabled through organizational policy.</p>
+            </li>
+            <li class="entry" id="copilot-fusion">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-route-and-orchestrate-models-with-github-copilot-fusion">Copilot Fusion: model routing and orchestration</a></h4>
+              <p>Choose Standard, High, or Max effort instead of managing every model choice. Fusion selects models and execution patterns for the task, including multi-model workflows when appropriate.</p>
+              <p class="detail">Available in VS Code, Copilot app, CLI, and JetBrains. Model policies still apply; usage is charged for the models used. Higher effort is not a fixed-price entitlement.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/models/copilot-fusion">Read the Fusion documentation</a>
+            </li>
+            <li class="entry" id="connected-cloud">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-work-from-anywhere-with-a-new-connected-copilot-cloud-experience">One cloud session across Copilot surfaces</a></h4>
+              <p>Start and continue the same cloud session across the web, Mobile, app, CLI, and VS Code, with Slack and Teams entry points. Resumable cloud sandboxes keep work independent of your laptop.</p>
+              <p class="detail">Paid Copilot plans; rollout and cloud policies apply. The included Actions entitlement becomes a shared, dollar-based compute pool, also covering larger runners on Team and Enterprise Cloud. Cloud-sandbox billing begins Nov 23, 2026, per the Nov 19 update.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/security-governance-and-network-settings/about-cloud-sandboxes">Read about cloud sandboxes</a>
+            </li>
+            <li class="entry" id="github-intelligence">
+              <div class="entry-head"><span class="badge">Mixed availability</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-intelligence-puts-your-code-context-and-history-to-work">GitHub intelligence: memory, dreaming, and code search</a></h4>
+              <p>Copilot can reuse preferences and repository conventions across sessions, propose improvements to its guidance, and find relevant code beyond the local checkout.</p>
+              <p class="detail">Memory is GA on paid Copilot plans. Dreaming is opt-in public preview and consumes AI credits; changes to checked-in skills and instructions are proposed through pull requests. Availability varies by capability.</p>
+            </li>
+            <li class="entry" id="local-models">
+              <div class="entry-head"><span class="badge preview">Experimental preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-copilot-fusion-now-supports-selection-of-local-models">Fusion can route work to local models</a></h4>
+              <p>Opt in to routing between supported on-device and cloud models. Managed Windows setup supports MAI Code 1.1 Flash; CLI also supports eligible manually configured models across operating systems.</p>
+              <p class="detail">Announced as experimental preview; current docs describe public preview with experimental settings required. Supported hardware and client setup vary. Local inference does not make the session offline: routing still uses the cloud.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/copilot/concepts/models/copilot-fusion#selecting-local-models-in-copilot-fusion">Check local-model requirements</a>
+            </li>
+            <li class="entry" id="image-generation">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-generate-and-edit-images-directly-in-copilot">Generate and edit images in Copilot</a></h4>
+              <p>Create or revise visual assets in natural language, preview them in the conversation, and save them to your workspace without moving to a separate image tool.</p>
+              <p class="detail">Announced for VS Code, Copilot app, and CLI on eligible paid plans. Image generation is billed separately from the chat model through AI credits and is subject to model policy.</p>
+            </li>
+            <li class="entry" id="gpt-terra">
+              <div class="entry-head"><span class="badge">GA / gradual rollout</span><time datetime="2026-10-26">Oct 26</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-26-gpt-6-1-terra-in-github-copilot">GPT-6.1 Terra joins Copilot</a></h4>
+              <p>OpenAI's GPT-6.1 Terra adds another model choice for everyday agentic coding and terminal work across supported Copilot clients.</p>
+              <p class="detail">Available on Copilot Pro, Pro+, Max, Business, and Enterprise, with gradual rollout. Administrators control access through model policies; usage-based billing applies.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="automation" aria-labelledby="automation-heading">
+          <div class="group-heading"><span class="kicker">02</span><h3 id="automation-heading">Automation &amp; review</h3></div>
+          <ul class="entries">
+            <li class="entry" id="shared-automations">
+              <div class="entry-head"><span class="badge">Rolling out</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-build-shared-workflows-for-your-team-with-copilot-automations">Shared Copilot Automations</a></h4>
+              <p>Build cloud workflows that belong to the repository rather than one person. Teams can maintain them together, and GitHub actions are attributed to Copilot.</p>
+              <p class="detail">AI credits are billed to the repository owner. Organization-owned repositories require an administrator to enable organization-billed cloud agent use. Availability is rolling out across paid Copilot plans.</p>
+            </li>
+            <li class="entry" id="automation-controls">
+              <div class="entry-head"><span class="badge">Feature update</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-new-tools-triggers-and-cost-controls-for-copilot-automations">More automation triggers, tools, and cost controls</a></h4>
+              <p>Trigger workflows through the REST API, respond to more GitHub events, chain automations, and connect selected MCP tools. Set AI-credit limits per run, day, week, or month.</p>
+              <p class="detail">The announcement adds 24 GitHub triggers and 20 GitHub tools. Paid Copilot plans and repository write access are required; you choose the tools an automation may use.</p>
+            </li>
+            <li class="entry" id="self-improving-automations">
+              <div class="entry-head"><span class="badge">Feature update</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-copilot-automations-now-learn-from-outcomes-and-self-improve">Automations learn from their outcomes</a></h4>
+              <p>Use signals such as accepted review comments, changed labels, and merged pull requests to propose improvements to an automation's instructions and configuration.</p>
+              <p class="detail">Proposed changes come to you for review and approval before being applied. This is not permission for an automation to silently rewrite its own operating rules.</p>
+            </li>
+            <li class="entry" id="vscode-automations">
+              <div class="entry-head"><span class="badge">Feature update</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-create-and-manage-copilot-automations-in-visual-studio-code">Manage cloud automations from VS Code</a></h4>
+              <p>Create personal or shared cloud automations from the Agents window, including event-driven and scheduled workflows that continue when your editor is closed.</p>
+              <p class="detail">The announcement requires VS Code 1.144 and the cloud-automations setting to be enabled. Available with paid Copilot plans.</p>
+            </li>
+            <li class="entry" id="agent-merge">
+              <div class="entry-head"><span class="badge">Feature update</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-agent-merge-watches-and-fixes-pull-requests-in-the-cloud">Agent Merge watches and fixes pull requests</a></h4>
+              <p>Use "Watch and fix" on GitHub to have Copilot address selected blockers, including failing Actions workflows and merge conflicts, in a cloud environment.</p>
+              <p class="detail">Available on paid Copilot plans, subject to policy. Auto-merge is a separate choice; GitHub still enforces the pull request's merge requirements.</p>
+            </li>
+            <li class="entry" id="code-review">
+              <div class="entry-head"><span class="badge">GA + public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-copilot-code-review-merge-with-confidence-with-max-and-approvals">Code review Max and Copilot approvals</a></h4>
+              <p>Max uses multiple review agents for deeper analysis of higher-risk changes. Copilot approvals can count toward required pull request approvals when administrators enable them.</p>
+              <p class="detail">Max was announced in public preview; approvals are GA and off by default. Max uses more time and AI credits. Administrators can cap review effort and restrict approval paths.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/use-copilot-agents/use-code-review">Read the code review documentation</a>
+            </li>
+            <li class="entry" id="agentic-workflows">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available">GitHub Agentic Workflows</a></h4>
+              <p>Define reasoning-based automation in Markdown and compile it into GitHub Actions workflows. Use existing runner infrastructure for tasks such as triage, CI investigation, documentation, and tests.</p>
+              <p class="detail">This open-source GitHub Next project is distinct from Copilot Automations. GA on github.com for Free, Team, and Enterprise; the default Copilot CLI engine requires a Copilot license.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="security" aria-labelledby="security-heading">
+          <div class="group-heading"><span class="kicker">03</span><h3 id="security-heading">Security</h3></div>
+          <ul class="entries">
+            <li class="entry" id="dependabot-reachability">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-prioritize-dependabot-alerts-with-reachability-analysis">Dependabot reachability analysis</a></h4>
+              <p>See whether your application has a call path to vulnerable dependency code. Verdicts and call-path evidence help teams prioritize fixes alongside severity and other risk signals.</p>
+              <p class="detail">Preview for JavaScript and TypeScript on Enterprise Cloud, including data residency. Requires a supported lockfile and Dependabot alerts. Free during preview; "unreachable" is not a guarantee of safety or a reason to dismiss an alert automatically.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/supply-chain-security/about-reachability-analysis-for-dependabot-alerts">Read requirements and limitations</a>
+            </li>
+            <li class="entry" id="ai-scan">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-ai-scan-for-repositories-in-public-preview">AI Scan for entire repositories</a></h4>
+              <p>Run an on-demand scan of the default branch to find potential vulnerabilities beyond pull request changes. Findings join the code-scanning backlog alongside CodeQL alerts.</p>
+              <p class="detail">Consumes Code Security AI credits; no Copilot license is required. Private or internal organization repositories require Code Security or Advanced Security. Private personal repositories are not supported.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/code-scanning/ai-scan">Compare AI Scan capabilities</a>
+            </li>
+            <li class="entry" id="ai-application-scanning">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-code-scanning-for-ai-applications-in-public-preview">Code scanning for AI applications and agents</a></h4>
+              <p>Identify AI-specific risks in pull requests, with an initial focus on indirect prompt injection and risky paths from untrusted content to models with access to tools or data.</p>
+              <p class="detail">The announcement describes expanding coverage for sensitive information disclosure and excessive agency. Preview requires Advanced Security on github.com; not available on Enterprise Server.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/code-security/concepts/code-scanning/ai-scan">Read about AI application scanning</a>
+            </li>
+            <li class="entry" id="ai-push-protection">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-push-protection-beyond-predefined-secret-patterns">Push protection for AI-detected secrets</a></h4>
+              <p>Block potential secrets that lack a recognized token format by evaluating how values are used in surrounding code, alongside existing pattern-based detection.</p>
+              <p class="detail">Off by default. Requires Secret Protection or Advanced Security on github.com, plus enabled AI-detected secret scanning and push protection. AI detection in the push path consumes AI credits from enablement.</p>
+            </li>
+            <li class="entry" id="public-monitoring">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-public-monitoring-for-enterprises-generally-available">Public monitoring for enterprise secrets</a></h4>
+              <p>Receive alerts when secrets attributed to your enterprise appear in public GitHub content, including locations outside repositories your organization owns.</p>
+              <p class="detail">Included with Secret Protection or Advanced Security for Enterprise Cloud, including data residency. Enable it from the enterprise Security tab. Public monitoring does not scan other users' private repositories.</p>
+            </li>
+            <li class="entry" id="security-extension">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-security-extension-for-the-github-copilot-app">Security extension for the Copilot app</a></h4>
+              <p>Browse code-scanning alerts, ask Copilot to explain or help fix them, and review local changes for security issues from one app surface.</p>
+              <p class="detail">Alert access follows repository permissions; private repositories need Code Security. Explain, Fix, and security-review prompts consume AI credits. Fixes stay local until you review and push them.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="developer" aria-labelledby="developer-heading">
+          <div class="group-heading"><span class="kicker">04</span><h3 id="developer-heading">Developer experience</h3></div>
+          <ul class="entries">
+            <li class="entry" id="vscode">
+              <div class="entry-head"><span class="badge">Mixed availability</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-copilot-in-vs-code-universe-releases">VS Code: connected and remote agent work</a></h4>
+              <p>The Universe update brings cloud-session continuity, an Agent Host independent of editor windows, remote agent execution, and an open Agent Host Protocol for custom clients.</p>
+              <p class="detail">Also includes side-by-side model comparison and a customization marketplace in preview, plus experimental computer use. Local and remote hosts must remain running for work hosted on those machines.</p>
+            </li>
+            <li class="entry" id="jetbrains">
+              <div class="entry-head"><span class="badge">GA + rollout</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-copilot-in-jetbrains-universe-releases">JetBrains: Fusion, sandboxing, and next edits</a></h4>
+              <p>Copilot Fusion brings model orchestration to JetBrains, alongside generally available local sandboxes and next edit suggestions. Session and settings improvements round out the update.</p>
+              <p class="detail">Fusion rolls out gradually. Update the Copilot plugin and review sandbox and permission settings before introducing agent workflows to your team.</p>
+            </li>
+            <li class="entry" id="connectors">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-connect-your-tools-to-copilot-without-all-the-setup">Connect once, use tools across Copilot</a></h4>
+              <p>GitHub-verified MCP connectors bring context from services such as Slack, Figma, Sentry, and Notion into supported Copilot experiences without repeating local setup.</p>
+              <p class="detail">Rolling out in preview on all Copilot plans. Business and Enterprise require Editor preview features; MCP allowlists and each service's own administrator controls still apply.</p>
+            </li>
+            <li class="entry" id="assisted-permissions">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-26">Oct 26</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-26-github-copilot-assisted-permissions-generally-available">Assisted permissions</a></h4>
+              <p>An AI evaluation lets requests classified as clearly safe proceed automatically while sending other command, filesystem, or URL requests to you for approval.</p>
+              <p class="detail">GA in Copilot CLI, app, and VS Code. Enterprises can manage Assisted and Allow All separately and choose the default mode. Assisted is not the same as unrestricted execution.</p>
+            </li>
+            <li class="entry" id="plugin-controls">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-repository-plugin-defaults-and-enterprise-plugin-controls-generally-available">Repository plugin defaults and enterprise controls</a></h4>
+              <p>Recommend and enable plugins through trusted repository defaults. Enterprise-managed settings can require or block plugins and limit installation to approved marketplaces.</p>
+              <p class="detail">GA in VS Code, CLI, and app. Repository defaults are not enforcement; enterprise policy takes precedence. Managed controls require eligible Enterprise Cloud and Copilot licensing.</p>
+            </li>
+            <li class="entry" id="replica">
+              <div class="entry-head"><span class="badge">Open source</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-introducing-replica-an-open-source-ai-prototyping-tool">Replica: design-system-aware prototyping</a></h4>
+              <p>GitHub Design open-sourced an AI prototyping tool that uses your team's components, patterns, and documentation to turn ideas into interactive prototypes in the Copilot app.</p>
+              <p class="detail">Released under the MIT license. Teams can prototype locally or operate an optional self-hosted Replica Hub to share work and gather feedback.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="platform" aria-labelledby="platform-heading">
+          <div class="group-heading"><span class="kicker">05</span><h3 id="platform-heading">Platform &amp; collaboration</h3></div>
+          <ul class="entries">
+            <li class="entry" id="issue-artifacts">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-issue-artifacts-are-now-in-public-preview">Issue artifacts</a></h4>
+              <p>Keep plans, research, links, and interactive HTML artifacts alongside the issue they support, with version history and shareable links. Manage artifacts on GitHub or through the GitHub CLI.</p>
+              <p class="detail">Client support differs: the announcement says creating and viewing HTML artifacts in the Copilot app is coming later, even though github.com supports HTML artifacts.</p>
+            </li>
+            <li class="entry" id="moderate-role">
+              <div class="entry-head"><span class="badge">GA / available Nov 12</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-moderate-role-for-github-issues-generally-available">A Moderate role for GitHub Issues</a></h4>
+              <p>Delegate issue editing, moderation, and metadata management without granting access to code. This separates community and issue-management responsibilities from code permissions.</p>
+              <p class="detail">Announced Oct 28; the source was updated Nov 12 to confirm availability. Transferring an issue requires Moderate or higher on both repositories.</p>
+            </li>
+            <li class="entry" id="pr-limit-exemptions">
+              <div class="entry-head"><span class="badge">Feature update</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-pull-request-limits-exempt-contributors-by-age-or-history">Pull request limit exemptions</a></h4>
+              <p>Exempt established contributors from contribution caps using minimum account age or the number of pull requests already merged in the repository.</p>
+              <p class="detail">Meeting either enabled rule grants an exemption. Repository-level cap settings override organization-level settings; individual exemption lists remain available.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="infrastructure" aria-labelledby="infrastructure-heading">
+          <div class="group-heading"><span class="kicker">06</span><h3 id="infrastructure-heading">Actions &amp; infrastructure</h3></div>
+          <ul class="entries">
+            <li class="entry" id="multi-cloud">
+              <div class="entry-head"><span class="badge">Rolling change</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-actions-adds-multi-cloud-compute-to-improve-reliability">Multi-cloud compute for Actions runners</a></h4>
+              <p>Eligible Linux jobs can use compute on AWS as well as Azure to expand capacity and improve resilience, without changing workflow syntax or runner labels.</p>
+              <p class="detail">Applies to eligible 2-core and 4-core Linux runners, not Windows or specialized configurations. Automatic for Free, Pro, and Team; Enterprise Cloud can opt in. Review network allowlists against all published Actions ranges.</p>
+            </li>
+            <li class="entry" id="workflow-lockfiles">
+              <div class="entry-head"><span class="badge">Generally available</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-actions-workflow-lockfiles-are-generally-available">Actions workflow dependency lockfiles</a></h4>
+              <p>Keep readable action tags in workflow files while executing locked commits, including transitive dependencies. Dependabot can update the matching lockfile entries with action updates.</p>
+              <p class="detail">GA on Free, Team, and Enterprise Cloud, including data residency. Adoption can be gradual or policy-enforced. Locking a dependency does not establish that it is safe.</p>
+            </li>
+            <li class="entry" id="webhook-ranges">
+              <div class="entry-head"><span class="badge">Network update</span><time datetime="2026-10-29">Oct 29</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-29-webhook-ip-ranges-added-to-the-meta-api">New webhook delivery IP ranges</a></h4>
+              <p>GitHub added webhook delivery ranges to the Meta API. Organizations with static inbound allowlists should update them to avoid rejecting legitimate deliveries.</p>
+              <p class="detail">Applies to github.com across plans. If your allowlist already synchronizes with the Meta API's hooks field, no manual change is needed for these additions.</p>
+            </li>
+          </ul>
+        </section>
+
+        <section class="group" data-category="enterprise" aria-labelledby="enterprise-heading">
+          <div class="group-heading"><span class="kicker">07</span><h3 id="enterprise-heading">Enterprise &amp; extensibility</h3></div>
+          <ul class="entries">
+            <li class="entry" id="enterprise-copilot">
+              <div class="entry-head"><span class="badge">Sales-assisted availability</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-enterprise-now-includes-access-to-github-copilot">Copilot access through GitHub Enterprise</a></h4>
+              <p>Eligible Enterprise Cloud customers working with a GitHub or Microsoft account team can adopt a model that includes Copilot access for licensed Enterprise users without a separate Copilot subscription charge.</p>
+              <p class="detail"><strong>Access is not free AI usage.</strong> This model includes no monthly AI-credit allowance; metered usage is billed from the first request. Activation and access assignment are required. Self-serve availability is staged; existing Business and Enterprise plans remain available.</p>
+              <a class="docs" href="https://docs.github.com/en/enterprise-cloud@latest/copilot/how-tos/copilot-on-github/set-up-copilot/enable-copilot/set-up-for-enterprise">Check eligibility, activation, and budgets</a>
+            </li>
+            <li class="entry" id="server-auth">
+              <div class="entry-head"><span class="badge preview">Public preview</span><time datetime="2026-10-27">Oct 27</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-27-github-copilot-supports-server-to-server-authentication">Server-to-server Copilot authentication</a></h4>
+              <p>Organization-installed GitHub Apps can use installation tokens with the Copilot SDK, so services and agents no longer need to run under a signed-in individual's identity.</p>
+              <p class="detail">Requires the Copilot Requests organization permission. Usage is attributed and billed to the installation's organization, with its model policies, budgets, and spending controls.</p>
+            </li>
+            <li class="entry" id="copilot-sdk">
+              <div class="entry-head"><span class="badge">Transition announced</span><time datetime="2026-10-28">Oct 28</time></div>
+              <h4><a class="announcement" href="https://github.blog/changelog/2026-10-28-github-copilot-sdk-is-becoming-microsoft-copilot-sdk">GitHub Copilot SDK becomes Microsoft Copilot SDK</a></h4>
+              <p>The SDK is evolving into the programmable interface for a shared Microsoft Copilot harness, while retaining developer control over prompts, tools, policies, and application experiences.</p>
+              <p class="detail">Branding, repository, and documentation changes are phased. Existing package names and namespaces may remain during the transition; the announcement requires no immediate changes from existing users.</p>
+            </li>
+          </ul>
+        </section>
+        <div id="empty" class="empty" hidden><h3>No matching announcements</h3><p>Try a different search or clear the filters.</p></div>
+      </section>
+
+      <section class="reading" aria-labelledby="reading-title">
+        <p class="eyebrow">Beyond the release notes</p>
+        <h2 id="reading-title">The keynote, the platform, and the bigger picture</h2>
+        <ul>
+          <li><a href="https://github.blog/news-insights/company-news/github-universe-2026-evolving-every-layer-of-the-stack/">GitHub Universe 2026: Evolving every layer of the stack</a><p>The Oct 28 keynote summary connects the product announcements with GitHub's continued infrastructure investment, Git architecture work, and Azure migration. These infrastructure plans are not a newly enabled customer feature.</p></li>
+          <li><a href="https://github.blog/news-insights/octoverse/octoverse-commits-pushes-reach-new-highs-in-2026-as-developers-build-with-agents/">Octoverse 2026</a><p>Published during Universe week: GitHub's annual look at developer activity, agent adoption, model choice, and open-source growth. Research context, rather than a product release.</p></li>
+          <li><a href="https://github.com/events/universe/recap">Official Universe recap</a><p>Continue exploring the event and GitHub's own announcement resources.</p></li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p><strong>About this roundup.</strong> A customer-facing editorial guide, not an official GitHub release document. It covers all 35 GitHub Changelog entries returned for Oct 26-Nov 01, 2026, grouped into seven product areas, plus the keynote and Octoverse report. Broader blog tutorials, community events, and announcements outside that window are not part of the release list.</p>
+      <p>Summaries use public GitHub sources only. Sources were reviewed Nov 19, 2026, including corrections published after the event. Availability, billing, and roadmap statements can change; official announcements, documentation, and your agreement take precedence. No analytics, cookies, external fonts, or third-party scripts are used on this page.</p>
+      <a href="https://github.blog/changelog/">GitHub Changelog</a>
+      <a href="https://docs.github.com/">GitHub Docs</a>
+      <a href="#page-title">Back to top</a>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const form = document.querySelector("#filters");
+      const search = document.querySelector("#search");
+      const category = document.querySelector("#category");
+      const groups = [...document.querySelectorAll(".group")];
+      const entries = [...document.querySelectorAll(".entry")];
+      const count = document.querySelector("#result-count");
+      const empty = document.querySelector("#empty");
+      const themeButton = document.querySelector("#theme-toggle");
+      const searchable = new Map(entries.map(entry => [entry, entry.textContent.toLowerCase()]));
+
+      function filter() {
+        const words = search.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+        let visible = 0;
+        for (const group of groups) {
+          let matches = 0;
+          for (const entry of group.querySelectorAll(".entry")) {
+            const show = (category.value === "all" || category.value === group.dataset.category)
+              && words.every(word => searchable.get(entry).includes(word));
+            entry.hidden = !show;
+            if (show) matches++;
+          }
+          group.hidden = matches === 0;
+          visible += matches;
+        }
+        count.textContent = `${visible} of ${entries.length} announcements`;
+        empty.hidden = visible !== 0;
+      }
+
+      function resetFilters() {
+        search.value = "";
+        category.value = "all";
+        filter();
+      }
+
+      function revealAnchor() {
+        const target = document.getElementById(window.location.hash.slice(1));
+        if (target?.classList.contains("entry")) {
+          resetFilters();
+          target.scrollIntoView();
+        }
+      }
+
+      function updateThemeLabel() {
+        const dark = document.documentElement.dataset.theme === "dark";
+        themeButton.textContent = dark ? "Light theme" : "Dark theme";
+        themeButton.setAttribute("aria-label", `Switch to ${dark ? "light" : "dark"} theme`);
+      }
+
+      form.addEventListener("submit", event => event.preventDefault());
+      form.addEventListener("reset", event => {
+        event.preventDefault();
+        resetFilters();
+        search.focus();
+      });
+      search.addEventListener("input", filter);
+      category.addEventListener("change", filter);
+      window.addEventListener("hashchange", revealAnchor);
+      document.querySelectorAll(".highlights a").forEach(link => {
+        link.addEventListener("click", resetFilters);
+      });
+      themeButton.addEventListener("click", () => {
+        document.documentElement.dataset.theme =
+          document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+        updateThemeLabel();
+      });
+      form.hidden = false;
+      themeButton.hidden = false;
+      updateThemeLabel();
+      filter();
+      revealAnchor();
+    })();
+  </script>
+</body>
+</html>
